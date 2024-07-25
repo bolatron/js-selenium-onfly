@@ -1,9 +1,11 @@
 const {
     Builder,
+    Browser,
     By,
     until,
     NoSuchSessionError,
 } = require("selenium-webdriver");
+const firefox = require('selenium-webdriver/firefox');
 
 
 async function altera_elementos_por_tag(driver, tag_name, text) {
@@ -17,7 +19,12 @@ async function altera_elementos_por_tag(driver, tag_name, text) {
 
 
 (async function main() {
-    let driver = await new Builder().forBrowser("firefox").build();
+
+    const serviceBuilder = new firefox.ServiceBuilder(__dirname + "/../bin/geckodriver");
+    let driver = await new Builder()
+        .forBrowser(Browser.FIREFOX)
+        .setFirefoxService(serviceBuilder)
+        .build();
 
     try {
         await driver.get("https://mingwpy.github.io/background-mingw.html");
