@@ -56,25 +56,25 @@ const firefox = require('selenium-webdriver/firefox');
                     By.xpath("/html/body/div/div[2]/form/div[2]/div[1]/input"),
                 );
                 await driver.wait(until.elementIsVisible(cep_input), 1000);
-                cep_input.sendKeys("36301266");
+                cep_input.sendKeys(dados_pessoa_ficticia['endereco']['cep']);
 
                 let endereco_input = await driver.findElement(
                     By.xpath("/html/body/div/div[2]/form/div[2]/div[2]/input"),
                 );
                 await driver.wait(until.elementIsVisible(endereco_input), 1000);
-                endereco_input.sendKeys("Rua teste da silva");
+                endereco_input.sendKeys(dados_pessoa_ficticia['endereco']['logradouro']);
 
                 let cidade_input = await driver.findElement(
                     By.xpath("/html/body/div/div[2]/form/div[2]/div[3]/input"),
                 );
                 await driver.wait(until.elementIsVisible(cidade_input), 1000);
-                cidade_input.sendKeys("Belo Horizonte");
+                cidade_input.sendKeys(dados_pessoa_ficticia['endereco']['municipio']);
 
                 let estado_input = await driver.findElement(
                     By.xpath("/html/body/div/div[2]/form/div[2]/div[4]/input"),
                 );
                 await driver.wait(until.elementIsVisible(estado_input), 1000);
-                estado_input.sendKeys("MG");
+                estado_input.sendKeys(dados_pessoa_ficticia['endereco']['uf']);
 
                 await driver.findElement(By.id("next-btn")).click();
 
@@ -101,7 +101,7 @@ const firefox = require('selenium-webdriver/firefox');
                     By.xpath("/html/body/div/div[2]/form/div[3]/div[4]/input"),
                 );
                 await driver.wait(until.elementIsVisible(cvv_cartao_input), 1000);
-                cvv_cartao_input.sendKeys("331");
+                cvv_cartao_input.sendKeys(dados_pessoa_ficticia['credit_card']['cvv']);
 
                 await driver.findElement(By.id("next-btn")).click();
 

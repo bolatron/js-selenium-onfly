@@ -17,7 +17,7 @@ async function obter_pessoa_ficticia() {
     );
     const json_response_pessoa = await response_pessoa.json();
 
-    // Pré-processamento dos dados
+    // Pré-processamento dos dados pessoais
     // ------------------------------------------------------------------------
     json_response_pessoa["name"] = json_response_pessoa["name"]
         .replace('ç', 'c');
@@ -41,6 +41,8 @@ async function obter_pessoa_ficticia() {
     json_response_pessoa["credit_card"]["expiration"] =
         json_response_pessoa["credit_card"]["expiration"]
             .replace("/", "/20");
+
+    json_response_pessoa["credit_card"]["cvv"] = "331";
     // ------------------------------------------------------------------------
 
     const response_endereco = await fetch(
@@ -49,7 +51,22 @@ async function obter_pessoa_ficticia() {
         "?token=" +
         process.env.TOKEN,
     );
-    const json_response_endereco = await response_endereco.json();
+    let json_response_endereco = await response_endereco.json();
+
+    // Pré-processamento dos dados de endereço
+    // ------------------------------------------------------------------------
+    json_response_endereco =
+        json_response_endereco["message"] == 'Nenhum resultado encontrado.'
+        ? {
+            "endereco": {
+                "cep": "36301266", 
+                "logradouro": "Sem logradouro", 
+                "municipio": "Belo Horizonte", 
+                "uf": "MG"
+            }
+          }
+        : json_response_endereco;
+    // ------------------------------------------------------------------------
 
     return Object.assign({}, json_response_endereco, json_response_pessoa);
 }
