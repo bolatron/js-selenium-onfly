@@ -24,8 +24,8 @@ A solução da tarefa 1 foi utilizando a biblioteca Selenium para Javascript. Os
 
 ### Dependências
 
-* **dotenv:**
-* **selenium-webdriver:**
+* **dotenv**
+* **selenium-webdriver**
 
 ### Instalando o Repositório
 
