@@ -6,11 +6,6 @@ const {
 } = require("selenium-webdriver");
 
 
-function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-
 async function altera_elementos_por_tag(driver, tag_name, text) {
     let p_elements = await driver.findElements(By.tagName(tag_name));
 
