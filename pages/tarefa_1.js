@@ -1,5 +1,6 @@
 const {
     Builder,
+    Browser,
     By,
     until,
     StaleElementReferenceError,
@@ -7,9 +8,16 @@ const {
 const {
     obter_pessoa_ficticia
 } = require('../utils/resquests');
+require("dotenv").config({ path: __dirname + "/../.env" });
+const firefox = require('selenium-webdriver/firefox');
 
 (async function main() {
-    let driver = await new Builder().forBrowser("firefox").build();
+
+    const serviceBuilder = new firefox.ServiceBuilder(__dirname + "/../bin/geckodriver");
+    let driver = await new Builder()
+        .forBrowser(Browser.FIREFOX)
+        .setFirefoxService(serviceBuilder)
+        .build();
 
     try {
         await driver.get("https://onfly-rpa-forms-62njbv2kbq-uc.a.run.app/");
@@ -19,7 +27,8 @@ const {
         while (i < MAX_FORMS) {
             
             let dados_pessoa_ficticia = await obter_pessoa_ficticia();
-            console.log(dados_pessoa_ficticia);
+            if (parseInt(process.env.DEBUG)) console.log(dados_pessoa_ficticia);
+
             try {
                 // Primeira parte
                 let nome_input = await driver.findElement(

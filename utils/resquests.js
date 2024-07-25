@@ -51,7 +51,7 @@ async function obter_pessoa_ficticia() {
     );
     const json_response_endereco = await response_endereco.json();
 
-    return Object.assign({}, json_response_pessoa, json_response_endereco);
+    return Object.assign({}, json_response_endereco, json_response_pessoa);
 }
 
 module.exports = { obter_pessoa_ficticia };
