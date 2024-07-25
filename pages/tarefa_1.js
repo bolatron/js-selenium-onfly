@@ -3,38 +3,42 @@ const {
     By,
     until,
     StaleElementReferenceError,
-} = require("selenium-webdriver");
-
+} = require('selenium-webdriver');
+const {
+    obter_pessoa_ficticia
+} = require('../utils/resquests');
 
 (async function main() {
     let driver = await new Builder().forBrowser("firefox").build();
 
     try {
         await driver.get("https://onfly-rpa-forms-62njbv2kbq-uc.a.run.app/");
-
+        
         let MAX_FORMS = 10;
         let i = 0;
         while (i < MAX_FORMS) {
+            
+            let dados_pessoa_ficticia = await obter_pessoa_ficticia();
+            console.log(dados_pessoa_ficticia);
             try {
-
                 // Primeira parte
                 let nome_input = await driver.findElement(
                     By.xpath("/html/body/div/div[2]/form/div[1]/div[1]/input"),
                 );
                 await driver.wait(until.elementIsVisible(nome_input), 10000);
-                nome_input.sendKeys("Teste Teste");
+                nome_input.sendKeys(dados_pessoa_ficticia['name']);
 
                 let telefone_input = await driver.findElement(
                     By.xpath("/html/body/div/div[2]/form/div[1]/div[2]/input"),
                 );
                 await driver.wait(until.elementIsVisible(telefone_input), 1000);
-                telefone_input.sendKeys("(31) 993193521");
+                telefone_input.sendKeys(dados_pessoa_ficticia['phone_number']);
 
                 let email_input = await driver.findElement(
                     By.xpath("/html/body/div/div[2]/form/div[1]/div[3]/input"),
                 );
                 await driver.wait(until.elementIsVisible(email_input), 1000);
-                email_input.sendKeys("email@email.com");
+                email_input.sendKeys(dados_pessoa_ficticia['email']);
 
                 await driver.findElement(By.id("next-btn")).click();
 
@@ -70,19 +74,19 @@ const {
                     By.xpath("/html/body/div/div[2]/form/div[3]/div[1]/input"),
                 );
                 await driver.wait(until.elementIsVisible(nome_cartao_input), 1000);
-                nome_cartao_input.sendKeys("Teste Teste");
+                nome_cartao_input.sendKeys(dados_pessoa_ficticia['name']);
 
                 let numero_cartao_input = await driver.findElement(
                     By.xpath("/html/body/div/div[2]/form/div[3]/div[2]/input"),
                 );
                 await driver.wait(until.elementIsVisible(numero_cartao_input), 1000);
-                numero_cartao_input.sendKeys("3746286795568091");
+                numero_cartao_input.sendKeys(dados_pessoa_ficticia['credit_card']['number']);
 
                 let validade_cartao_input = await driver.findElement(
                     By.xpath("/html/body/div/div[2]/form/div[3]/div[3]/input"),
                 );
                 await driver.wait(until.elementIsVisible(validade_cartao_input), 1000);
-                validade_cartao_input.sendKeys("12/2025");
+                validade_cartao_input.sendKeys(dados_pessoa_ficticia['credit_card']['expiration']);
 
                 let cvv_cartao_input = await driver.findElement(
                     By.xpath("/html/body/div/div[2]/form/div[3]/div[4]/input"),
