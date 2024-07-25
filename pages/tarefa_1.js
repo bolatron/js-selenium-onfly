@@ -8,6 +8,9 @@ const {
 const {
     obter_pessoa_ficticia
 } = require('../utils/resquests');
+const {
+    valida_todos_campos
+} = require('../utils/validations');
 require("dotenv").config({ path: __dirname + "/../.env" });
 const firefox = require('selenium-webdriver/firefox');
 
@@ -27,6 +30,9 @@ const firefox = require('selenium-webdriver/firefox');
         while (i < MAX_FORMS) {
             
             let dados_pessoa_ficticia = await obter_pessoa_ficticia();
+
+            if (!valida_todos_campos(dados_pessoa_ficticia)) continue;
+
             if (parseInt(process.env.DEBUG)) console.log(dados_pessoa_ficticia);
 
             try {

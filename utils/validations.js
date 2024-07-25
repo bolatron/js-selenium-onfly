@@ -1,13 +1,12 @@
 function valida_todos_campos(data) {
-    return
-        validateFullName(data['name']) 
+    return validateFullName(data['name']) 
         && validatePhone(data['phone_number'])
         && validateEmail(data['email'])
         && validateCep(data['endereco']['cep'])
         && validateAddress(data['endereco']['logradouro'])
         && validateCardNumber(data['credit_card']['number'])
         && validateExpirationDate(data['credit_card']['expiration'])
-        && validateCvv(data['credit_card']['cvv'])
+        && validateCvv(data['credit_card']['cvv']);
 }
 
 
@@ -93,3 +92,5 @@ function validateCvv(cvv) {
 
     return cvv.length == 3
 }
+
+module.exports = { valida_todos_campos };
