@@ -27,7 +27,7 @@ async function altera_elementos_por_tag(driver, tag_name, text) {
     try {
         await driver.get("https://mingwpy.github.io/background-mingw.html");
         altera_elementos_por_tag(driver, "p", "Texto alterado");
-    } catch (e) {
+    } catch (err) {
         if (typeof err == NoSuchSessionError) await driver.close();
     }
 })();
