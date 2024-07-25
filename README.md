@@ -2,8 +2,6 @@
 
 ## Sobre
 
-## Analisando a Tarefa e Propondo uma Solução em JavaScript
-
 **Entendendo o Problema:**
 
 A tarefa exige que seja desenvolvido um script JavaScript para automatizar o preenchimento de um formulário online e a manipulação do DOM de uma página HTML. A principal dificuldade reside em:
